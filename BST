@@ -1,0 +1,63 @@
+#include<stdio.h>
+ #include<stdlib.h>
+ 
+ struct node{
+     int data;
+     struct node*left;
+     struct node*right;
+     
+ };
+ 
+//creation of node in a BST
+ struct node* createnode(int data){
+     struct node* n = (struct node*)malloc(sizeof(struct node));
+     n -> data = data;
+     n -> right = NULL;
+     n -> left = NULL;
+     return n;
+ }
+
+//to check whether the given tree is a BST or not
+ int isBST(struct node*root){
+     static struct node*prev = NULL;
+     if(root!=NULL){
+         if(!isBST(root->left)){
+             return 0;
+         }
+         else if(prev!=NULL && root->data < prev -> data){
+             return 0;
+         }
+         prev = root;
+         isBST(root-> right);
+     }
+     else{
+         return 1;
+     }
+ }
+ 
+//inorder traversal of BST
+ void inorder(struct node*root){
+     if(root!=NULL){
+         inorder(root -> left);
+         printf("%d ",root-> data);
+         inorder(root -> right);
+     }
+ }
+
+//preorder traversal of BST
+ void preorder(struct node*root){
+     if(root!=NULL){
+         printf("%d ",root-> data);
+         inorder(root -> left);
+         inorder(root -> right);
+     }
+ }
+
+//postorder traversal of BST
+ void postorder(struct node*root){
+     if(root!=NULL){
+         inorder(root -> left);
+         inorder(root -> right);
+         printf("%d ",root-> data);
+     }
+ }
